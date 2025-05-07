@@ -1,17 +1,12 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-driver = webdriver.Chrome()
-driver.maximize_window()
-driver.get("https://stellarburgers.nomoreparties.site/")
-
 email = 'Igor_Razbezhkin_19_495@gmail.ru'
 password = '2900405'
 
-def test_exit_from_your_personal_account_by_pressing_the_button_completed():
+def test_exit_from_your_personal_account_by_pressing_the_button_completed(driver):
     driver.find_element(By.XPATH, ".//button[text()='Войти в аккаунт']").click()
 
     driver.find_element(By.XPATH, ".//label[text()='Email']/following-sibling::input").send_keys(email)

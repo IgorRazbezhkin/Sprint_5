@@ -1,18 +1,13 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from helpers import random_name, random_email
 
 
-driver = webdriver.Chrome()
-driver.maximize_window()
-driver.get("https://stellarburgers.nomoreparties.site/")
-
 valid_password = '123456'
 invalid_password = '123'
 
-def test_registration_completed():
+def test_registration_completed(driver):
     name = random_name()
     email = random_email()
     driver.find_element(By.XPATH, ".//*[@href='/account']").click()
@@ -30,7 +25,7 @@ def test_registration_completed():
 
     assert driver.current_url == 'https://stellarburgers.nomoreparties.site/login'
 
-def test_registration_with_invalid_password_error_incorrect_password():
+def test_registration_with_invalid_password_error_incorrect_password(driver):
     name = random_name()
     email = random_email()
     driver.find_element(By.XPATH, ".//*[@href='/account']").click()
@@ -47,5 +42,3 @@ def test_registration_with_invalid_password_error_incorrect_password():
     error_message = WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//p[contains(text(), 'Некорректный пароль')]")))
 
     assert error_message is not None
-
-    driver.quit()
