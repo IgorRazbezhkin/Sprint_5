@@ -1,68 +1,53 @@
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from data import email, password
+from locators import Login, Registration
 
-
-current_url = driver.current_url
 
 def test_login_button_enter_your_account_login_completed(driver):
-    driver.find_element(By.XPATH, ".//button[text()='Войти в аккаунт']").click()
+    driver.find_element(*Login.login_to_your_account_button).click()
 
-    driver.find_element(By.XPATH, ".//label[text()='Email']/following-sibling::input").send_keys(email)
-    driver.find_element(By.XPATH, ".//label[text()='Пароль']/following-sibling::input").send_keys(password)
-    driver.find_element(By.XPATH, ".//button[text()='Войти']").click()
+    driver.find_element(*Login.email_button_on_the_login_page).send_keys(email)
+    driver.find_element(*Login.password_button_on_login_page).send_keys(password)
+    driver.find_element(*Login.login_button_on_login_page).click()
 
     WebDriverWait(driver, 5).until(expected_conditions.url_to_be('https://stellarburgers.nomoreparties.site/'))
 
-    assert current_url == 'https://stellarburgers.nomoreparties.site/'
-
-    driver.find_element(By.XPATH, ".//*[@href='/account']").click()
-
-    WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, ".//button[contains(text(), 'Выход')]"))).click()
+    assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
 
 def test_login_button_personal_account_login_completed(driver):
-    driver.find_element(By.XPATH, ".//*[@href='/account']").click()
+    driver.find_element(*Registration.personal_account_button).click()
 
-    driver.find_element(By.XPATH, ".//label[text()='Email']/following-sibling::input").send_keys(email)
-    driver.find_element(By.XPATH, ".//label[text()='Пароль']/following-sibling::input").send_keys(password)
-    driver.find_element(By.XPATH, ".//button[text()='Войти']").click()
+    driver.find_element(*Login.email_button_on_the_login_page).send_keys(email)
+    driver.find_element(*Login.password_button_on_login_page).send_keys(password)
+    driver.find_element(*Login.login_button_on_login_page).click()
 
     WebDriverWait(driver, 5).until(expected_conditions.url_to_be('https://stellarburgers.nomoreparties.site/'))
 
-    assert current_url == 'https://stellarburgers.nomoreparties.site/'
-
-    driver.find_element(By.XPATH, ".//p[contains(text(), 'Личный Кабинет')]").click()
-
-    WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, ".//button[contains(text(), 'Выход')]"))).click()
+    assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
 
 def test_login_button_in_registration_form_login_completed(driver):
-    driver.find_element(By.XPATH, ".//*[@href='/account']").click()
-    driver.find_element(By.XPATH, ".//*[@href='/register']").click()
-    driver.find_element(By.XPATH, ".//*[@href='/login']").click()
+    driver.find_element(*Registration.personal_account_button).click()
+    driver.find_element(*Registration.register_button).click()
+    driver.find_element(*Login.login_button_on_the_registration_and_password_recovery_page).click()
 
-    driver.find_element(By.XPATH, ".//label[text()='Email']/following-sibling::input").send_keys(email)
-    driver.find_element(By.XPATH, ".//label[text()='Пароль']/following-sibling::input").send_keys(password)
-    driver.find_element(By.XPATH, ".//button[text()='Войти']").click()
+    driver.find_element(*Login.email_button_on_the_login_page).send_keys(email)
+    driver.find_element(*Login.password_button_on_login_page).send_keys(password)
+    driver.find_element(*Login.login_button_on_login_page).click()
 
     WebDriverWait(driver, 5).until(expected_conditions.url_to_be('https://stellarburgers.nomoreparties.site/'))
 
-    assert current_url == 'https://stellarburgers.nomoreparties.site/'
-
-    driver.find_element(By.XPATH, ".//*[@href='/account']").click()
-
-    WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, ".//button[contains(text(), 'Выход')]"))).click()
-
+    assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
 
 def test_login_button_in_password_recovery_form_login_completed(driver):
-    driver.find_element(By.XPATH, ".//*[@href='/account']").click()
-    driver.find_element(By.XPATH, ".//*[@href='/forgot-password']").click()
-    driver.find_element(By.XPATH, ".//*[@href='/login']").click()
+    driver.find_element(*Registration.personal_account_button).click()
+    driver.find_element(*Login.recover_password_button).click()
+    driver.find_element(*Login.login_button_on_the_registration_and_password_recovery_page).click()
 
-    driver.find_element(By.XPATH, ".//label[text()='Email']/following-sibling::input").send_keys(email)
-    driver.find_element(By.XPATH, ".//label[text()='Пароль']/following-sibling::input").send_keys(password)
-    driver.find_element(By.XPATH, ".//button[text()='Войти']").click()
+    driver.find_element(*Login.email_button_on_the_login_page).send_keys(email)
+    driver.find_element(*Login.password_button_on_login_page).send_keys(password)
+    driver.find_element(*Login.login_button_on_login_page).click()
 
     WebDriverWait(driver, 5).until(expected_conditions.url_to_be('https://stellarburgers.nomoreparties.site/'))
 
-    assert current_url == 'https://stellarburgers.nomoreparties.site/'
+    assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
