@@ -2,10 +2,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from helpers import random_name, random_email
+from data import valid_password, invalid_password
 
-
-valid_password = '123456'
-invalid_password = '123'
 
 def test_registration_completed(driver):
     name = random_name()

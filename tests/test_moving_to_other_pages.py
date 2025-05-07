@@ -1,10 +1,9 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
+from data import email, password
 
 
-email = 'Igor_Razbezhkin_19_495@gmail.ru'
-password = '2900405'
 current_url = driver.current_url
 
 def test_transition_by_clicking_personal_account_page_open(driver):
